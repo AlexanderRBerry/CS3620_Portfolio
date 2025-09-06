@@ -12,9 +12,3 @@ def portfolio(request):
     return render(request, "portfolio.html", {"portfolios": portfolio_queryset})
 def contact(request):
     return render(request, "contact.html")
-
-
-# Example of rendering from a template
-#def homepage(request):
-#    entries = Entry.objects.order_by('-created_at')
-#    return render(request, "index.html", {'entries': entries})
