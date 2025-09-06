@@ -1,0 +1,15 @@
+{% extends "base.html"%}
+{%block title%}Hobbies - CS3620 Portfolio{%endblock%}
+{%block content%}
+<h1 class="mb-4">Hobbies</h1>
+
+<ul class="list-group mb-4">
+    {%for h in hobbies%}
+        <li class="list-group-item">
+            <strong class="mb-1">{{h.name}}</strong>
+            <p class="mb-1">{{h.description}}</p>
+            <p class="mb-1">Monthly cost ${{h.monthly_cost}}</p>
+        </li>
+    {% endfor %}
+</ul>
+{%endblock%}

@@ -1,0 +1,20 @@
+{%extends "base.html"%}
+{%block title%}Portfolio Page - CS 3620 Portfolio {%endblock%}
+{%block content%}
+<body>
+<h1 class="mb-4">Portfolio</h1>
+<ul class="list-group mb-4">
+{%for p in portfolios%}
+<li class="list-group-item">
+    <strong class="mb-1">{{p.name}}</strong>
+    <p class="mb-1">{{p.description}}</p>
+    {%if p.portfolio_link%}
+
+    <a href="{{p.portfolio_link}}" target="blank" class="btn btn-sm btn-primary">{{p.portfolio_link}}</a>
+
+    {%endif%}
+</li>
+{% endfor %}
+</ul>
+</body>
+{%endblock%}
