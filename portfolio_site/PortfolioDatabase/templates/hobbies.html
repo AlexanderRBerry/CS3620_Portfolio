@@ -1,15 +1,17 @@
 {% extends "base.html"%}
 {%block title%}Hobbies - CS3620 Portfolio{%endblock%}
 {%block content%}
-<h1 class="mb-4">Hobbies</h1>
+    <div class="container my-4">
+        <h1 class="ab-section-title">Hobbies</h1>
 
-<ul class="list-group mb-4">
-    {%for h in hobbies%}
-        <li class="list-group-item">
-            <strong class="mb-1">{{h.name}}</strong>
-            <p class="mb-1">{{h.description}}</p>
-            <p class="mb-1">Monthly cost ${{h.monthly_cost}}</p>
-        </li>
-    {% endfor %}
-</ul>
+        <ul class="list-group ab-list-compact ab-stagger">
+            {%for h in hobbies%}
+                <li class="list-group-item ab-card ab-raise-item ab-soft-hover">
+                    <strong class="mb-1 d-block">{{h.name}}</strong>
+                    <p class="mb-1">{{h.description}}</p>
+                    <p class="mb-0 text-muted">Monthly cost ${{h.monthly_cost}}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 {%endblock%}
