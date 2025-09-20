@@ -1,0 +1,32 @@
+{%extends "base.html"%}
+{%block title%}{{portfolio.name}}{%endblock%}
+{%block content%}
+    <div class="container my-4">
+        <h1 class="ab-section-title"> {{portfolio.name}} </h1>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>
+                        Description
+                    </h4>
+                    <p class="mb-1">{{portfolio.description | urlize}}</p>
+                    {%if portfolio.portfolio_link%}
+                    <h5>
+                        External Link
+                    </h5>
+                    <a href="{{ p.portfolio_link }}"
+                        target="_blank" rel="noopener"
+                        class="btn btn-sm btn-soft-primary ab-focus-ring">
+                        {{ portfolio.portfolio_link }}
+                    </a>
+                    {%endif%}
+                </div>
+                <div class="col-md-6">
+                    {%if portfolio.image%}
+                        <img src="{{portfolio.image.url}}" alt="{{ portfolio.name }}" class="img-fluid">
+                    {%endif%}
+                </div>
+            </div>
+    </div>
+{%endblock%}

@@ -6,11 +6,13 @@
 
         <ul class="list-group ab-list-compact ab-stagger">
             {%for h in hobbies%}
-                <li class="list-group-item ab-card ab-raise-item ab-soft-hover">
-                    <strong class="mb-1 d-block">{{h.name}}</strong>
-                    <p class="mb-1">{{h.description}}</p>
-                    <p class="mb-0 text-muted">Monthly cost ${{h.monthly_cost}}</p>
-                </li>
+                <a href="{{h.id}}" class="link-reset">
+                    <li class="list-group-item ab-card ab-raise-item ab-soft-hover mb-2">
+                        <strong class="mb-1 d-block">{{h.name}}</strong>
+                        <p class="mb-1">{{h.description}}</p>
+                        <p class="mb-0 text-muted">Monthly cost ${{h.monthly_cost}}</p>
+                    </li>
+                </a>
             {% endfor %}
         </ul>
     </div>

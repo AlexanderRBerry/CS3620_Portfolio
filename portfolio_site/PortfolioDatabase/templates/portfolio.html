@@ -3,18 +3,45 @@
 {%block content%}
 <div class="container my-4">
     <h1 class="ab-section-title">Portfolio</h1>
-    <ul class="list-group ab-list ab-stagger">
-        {%for p in portfolios%}
-            <li class="list-group-item ab-card ab-raise-item ab-soft-hover">
-                <strong class="mb-1 d-block">{{p.name}}</strong>
-                <p class="mb-2 ab-measure">{{p.description|urlize|safe}}</p>
-                {%if p.portfolio_link%}
-                    <a href="{{p.portfolio_link}}" target="blank" class="btn btn-sm btn-soft-primary ab-focus-ring">
-                        {{p.portfolio_link}}
+<ul class="list-group ab-list ab-stagger">
+  {% for p in portfolios %}
+    <li class="list-group-item ab-card ab-raise-item mb-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
+      <strong class="mb-1 d-block">
+        <a href="{% url 'PortfolioDatabase:portfolio_details' p.pk %}"
+           class="text-reset text-decoration-none">
+          {{ p.name }}
+        </a>
+      </strong>
+
+      <p class="mb-2 ">
+        {{ p.description|urlize }} 
+      </p>
+
+      {% if p.portfolio_link %}
+        <a href="{{ p.portfolio_link }}"
+           target="_blank" rel="noopener"
+           class="btn btn-sm btn-soft-primary ab-focus-ring">
+          {{ p.portfolio_link }}
+        </a>
+      {% endif %}
+                </div>
+                {%if p.image%}
+                <div class="col-md-5 text-center">
+                    <a href="{% url 'PortfolioDatabase:portfolio_details' p.pk %}"
+                        class="text-reset text-decoration-none">
+                        <img src="{{p.image.url}}" alt="{{ p.name }}" 
+                        class="img-fluid img-thumbnail" style="width: auto; height: 200px;">
                     </a>
+                </div>
                 {%endif%}
-            </li>
-        {% endfor %}
-    </ul>
+            </div>
+        </div>
+    </li>
+  {% endfor %}
+</ul>
+
 </div>
 {%endblock%}

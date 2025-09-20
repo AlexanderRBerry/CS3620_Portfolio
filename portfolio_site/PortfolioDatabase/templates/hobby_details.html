@@ -1,0 +1,30 @@
+{%extends "base.html"%}
+{%load static%}
+{%block title%}{{hobby.name}}{%endblock%}
+{%block content%}
+    <div class="container my-4">
+        <h1 class="ab-section-title"> {{hobby.name}} </h1>
+        
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>
+                        Description
+                    </h4>
+                    <p class="mb-1">{{hobby.description}}</p>
+                    <h5>
+                        Estimated Monthly cost
+                    </h5>
+                    <p class="mb-0 ">{{hobby.monthly_cost}}</p>
+                </div>
+                <div class="col-md-6">
+                    {%if hobby.image%}
+                        <img src="{{hobby.image.url}}" alt="{{ hobby.name }}" class="img-fluid">
+                    {%endif%}
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+{%endblock%}

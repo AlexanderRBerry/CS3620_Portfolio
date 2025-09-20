@@ -1,22 +1,80 @@
-{%extends "base.html"%} <!--Allows this page to inherit things like the navbar from the base template.-->
-{%block title%}Home - CS3620 Portfolio {%endblock%}
-{%block content%}
-    <div class="container my-4 ab-prose">
-        <div class="ab-gradient-hero p-4 p-md mb-4 ab-shadow-sm">
-            <h1 class="mb-3 ab-section-title">
-                Home <span class="ab-badge ms-2">Welcome </span>
-            </h1>
-            <p class="mb-0  ab-content-max">
-                Thanks for stopping by. I am a software engineer who loves building clean, reliable systems 
-                and shipping useful features.
-            </p>
-        </div>
+{% extends "base.html" %}
+{% block title %}Home - CS3620 Portfolio{% endblock %}
+{% block content %}
+<div class="container my-4 ab-prose">
 
-        <h5 class="mb-2 ab-label">About Me</h5>
-        <p class="">Before tech I served as a tracked vehicle mechanic in the U S Army, where I learned discipline, 
-            the fine art of troubleshooting, and how to stay calm under pressure. I bring that mindset to code with a 
-            focus on readable design, steady iteration, and thoughtful teamwork. I work primarily in C sharp using .NET Computer 
-            and in Python using Django. I lift, run, and tinker with PCs for fun, and I received my Bachelors of Science in 
-            Computer Science from Weber State University in December 2025.</p>
+  <!-- HERO -->
+  <section class="ab-gradient-hero p-4 p-md-5 rounded-3 ab-shadow-sm mb-4">
+    <h1 class="mb-3 ab-section-title">
+      Hi, I'm Alex <span class="ab-badge ms-2">Software Engineer</span>
+    </h1>
+    <p class="mb-3 ab-content-max">
+      I build clean, reliable web apps with .NET and Django. I like shipping useful features,
+      writing readable code, and keeping systems stable under pressure.
+    </p>
+    <div class="d-flex gap-2">
+      <a href="{% url 'PortfolioDatabase:portfolio' %}" class="btn btn-primary">View my work</a>
+      <a href="{% url 'PortfolioDatabase:hobbies' %}" class="btn btn-outline-secondary">Hobbies</a>
+      <a href="{% url 'PortfolioDatabase:contact' %}" class="btn btn-outline-secondary">Contact</a>
     </div>
-{%endblock%}
+  </section>
+
+  <!-- SKILLS STRIP -->
+  <section class="mb-4">
+    <h5 class="mb-2 ab-label">Skills</h5>
+    <ul class="list-inline mb-0">
+      <li class="list-inline-item"><span class="badge bg-secondary">C# / .NET</span></li>
+      <li class="list-inline-item"><span class="badge bg-secondary">Python / Django</span></li>
+      <li class="list-inline-item"><span class="badge bg-secondary">SQL / EF Core</span></li>
+      <li class="list-inline-item"><span class="badge bg-secondary">HTML / CSS / Bootstrap</span></li>
+      <li class="list-inline-item"><span class="badge bg-secondary">Git / GitHub</span></li>
+    </ul>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="mb-4">
+    <h5 class="mb-2 ab-label">About Me</h5>
+    <p class="ab-content-max">
+      Before tech I served as a tracked vehicle mechanic in the US Army. I bring that discipline
+      to engineering: readable design, steady iteration, and calm under pressure. I work primarily
+      in C# with .NET and in Python with Django. I lift, run, and tinker with PCs for fun. I earned
+      my B.S. in Computer Science from Weber State University (Dec 2025).
+    </p>
+  </section>
+
+  <!-- FEATURED PROJECTS -->
+  <section>
+    <h5 class="mb-3 ab-label">Featured Projects</h5>
+    <div class="row g-3">
+      {% for p in featured %}
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm ab-card">
+        <!-- I don't want to use this quite yet.
+          {% if p.image %}
+            <img src="{{ p.image.url }}" class="card-img-top" alt="{{ p.title }}">
+          {% endif %}
+        -->
+          <div class="card-body d-flex flex-column">
+            <h6 class="card-title mb-1">
+              <a href="{% url 'PortfolioDatabase:portfolio_details' p.pk %}" class="text-decoration-none">
+                {{ p.title|default:p.name }}
+              </a>
+            </h6>
+            <p class="card-text text-muted small flex-grow-1">{{ p.description|truncatechars:140 }}</p>
+            <div class="d-flex gap-2">
+              <a href="{% url 'PortfolioDatabase:portfolio_details' p.pk %}" class="btn btn-sm btn-primary">Details</a>
+              {% if p.portfolio_link %}
+              <a href="{{ p.portfolio_link }}" target="_blank" rel="noopener" class="btn btn-sm btn-outline-secondary">Repository</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+        <p class="text-muted">No projects yet. Check back soon.</p>
+      {% endfor %}
+    </div>
+  </section>
+
+</div>
+{% endblock %}

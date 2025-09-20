@@ -17,7 +17,15 @@ a {
   border-bottom: 1px solid transparent;
   transition: color .2s ease, border-color .2s ease;
 }
-
+.link-reset {
+  all: unset;               
+  display: block;           
+  cursor: pointer;          
+}
+.link-reset:focus,
+.link-reset:hover {
+  outline: none;            
+}
 a:hover,
 a:focus {
   color: var(--ab-accent-600);
@@ -119,8 +127,6 @@ a:active {
   --bs-btn-active-bg:   rgba(13,110,253,.28);
   --bs-btn-active-border-color: rgba(13,110,253,.35);
 }
-.btn-soft-primary { @apply; } /* (noop for non-Tailwind env; retained for clarity) */
-.btn-soft-primary.btn { border-width: 1px; }
 
 /* 9) Focus ring utility for a11y */
 .ab-focus-ring:focus {
