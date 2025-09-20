@@ -1,12 +1,19 @@
 from django.contrib import admin
-from .models import Hobby, Portfolio, PortfolioImage
+from .models import Hobby, Portfolio, PortfolioImage, HobbyImage
 # Register your models here.
+class HobbyImageInline(admin.TabularInline):
+    model = HobbyImage
+    extra = 1
+    fields = ("image", "alt_text", "order")
+    ordering = ("order", "id")
+
 @admin.register(Hobby)
 class HobbyAdmin(admin.ModelAdmin):
     list_display = ("name", "description", "monthly_cost")
     search_fields = ("name",)
     list_filter = ("monthly_cost",)
     ordering = ("name",)
+    inlines = [HobbyImageInline]
 
 class PortfolioImageInline(admin.TabularInline):
     model = PortfolioImage

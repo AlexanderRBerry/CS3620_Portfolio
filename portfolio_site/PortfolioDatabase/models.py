@@ -5,7 +5,6 @@ class Hobby(models.Model):
     name = models.CharField(("Hobby Name"), max_length=50)
     description = models.TextField("Hobby Description")
     monthly_cost = models.DecimalField("Hobby Monthly cost", max_digits=10, decimal_places=2)
-    image = models.ImageField("Hobby Image", upload_to="hobbies/", blank=True, null=True)
 
     class Meta:
         verbose_name = "Hobby"
@@ -14,6 +13,21 @@ class Hobby(models.Model):
 
     def __str__(self):
         return self.name
+    
+class HobbyImage(models.Model):
+    hobby = models.ForeignKey(
+        Hobby,
+        on_delete=models.CASCADE,
+        related_name="images"
+    )
+    image = models.ImageField(upload_to="hobbies/")
+    alt_text = models.CharField(max_length=150, blank=True)
+    order = models.PositiveIntegerField(default=2)
+    class meta:
+        ordering = ["order", "id"]
+    def __str__(self):
+        return f"{self.hobby} {self.id}"
+    
 class Portfolio(models.Model):
     name = models.CharField(("Portfolio Name"), max_length=50)
     description = models.TextField("Portfolio Description")
@@ -39,7 +53,7 @@ class PortfolioImage(models.Model):
     )
     image = models.ImageField(upload_to="portfolios/")
     alt_text = models.CharField(max_length=150, blank=True)
-    order = models.PositiveSmallIntegerField(default=0)
+    order = models.PositiveSmallIntegerField(default=2)
 
     class Meta:
         ordering = ["order", "id"]
