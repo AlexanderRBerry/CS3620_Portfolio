@@ -27,6 +27,10 @@ class PortfolioDetailView(DetailView):
     model = Portfolio
     template_name = "portfolio_details.html"
     context_object_name = "portfolio"
+    
+    # This grabs all related images at once which is much more efficent and scalable
+    def get_queryset(self): 
+        return Portfolio.objects.prefetch_related("images")
 
 def contact(request):
     return render(request, "contact.html")

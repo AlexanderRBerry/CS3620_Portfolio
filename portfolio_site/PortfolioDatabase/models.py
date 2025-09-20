@@ -20,7 +20,8 @@ class Portfolio(models.Model):
     #blank=True allows forms to accept blank fields
     #null=True allows the null in the database
     portfolio_link = models.URLField(("Portfolio Link"), max_length=200, blank=True, null=True)
-    image = models.ImageField("Portfolio Image", upload_to="portfolios/", blank=True, null=True)
+    # The image field is going to be replaced by an image model with a foreign key to this model
+    #image = models.ImageField("Portfolio Image", upload_to="portfolios/", blank=True, null=True)
 
     class Meta:
         verbose_name = "Portfolio"
@@ -29,3 +30,18 @@ class Portfolio(models.Model):
 
     def __str__(self):
         return self.name
+    
+class PortfolioImage(models.Model):
+    portfolio = models.ForeignKey(
+        Portfolio,
+        on_delete=models.CASCADE,
+        related_name="images"
+    )
+    image = models.ImageField(upload_to="portfolios/")
+    alt_text = models.CharField(max_length=150, blank=True)
+    order = models.PositiveSmallIntegerField(default=0)
+
+    class Meta:
+        ordering = ["order", "id"]
+    def __str__(self):
+        return f"{self.portfolio} {self.id}"

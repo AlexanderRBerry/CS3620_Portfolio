@@ -228,3 +228,8 @@ a:active {
   .ab-card, .ab-gradient-hero, .ab-shadow-sm, .ab-shadow-md { box-shadow: none !important; }
   .ab-gradient-hero { background: none !important; border-color: #888; }
 }
+.carousel-item img {
+  height: 400px;        
+  width: 100%;          
+  object-fit: cover;    
+}

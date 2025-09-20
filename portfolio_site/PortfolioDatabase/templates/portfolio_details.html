@@ -10,22 +10,41 @@
                     <h4>
                         Description
                     </h4>
-                    <p class="mb-1">{{portfolio.description | urlize}}</p>
+                    <p class="mb-1">{{portfolio.description|urlize}}</p>
                     {%if portfolio.portfolio_link%}
                     <h5>
                         External Link
                     </h5>
-                    <a href="{{ p.portfolio_link }}"
+                    <a href="{{ portfolio_link }}"
                         target="_blank" rel="noopener"
                         class="btn btn-sm btn-soft-primary ab-focus-ring">
                         {{ portfolio.portfolio_link }}
                     </a>
                     {%endif%}
                 </div>
+                <!--Bootstrap carousel-->
                 <div class="col-md-6">
-                    {%if portfolio.image%}
-                        <img src="{{portfolio.image.url}}" alt="{{ portfolio.name }}" class="img-fluid">
+                    {% with imgs=portfolio.images.all%}
+                    {%if imgs%}
+                        <div id="portfolioCarousel-{{portfolio.pk}}" class="carousel slide">
+                            <div class="carousel-inner">
+                              {%for img in imgs%}
+                                <div class="carousel-item {%if forloop.first%}active{%endif%}">
+                                  <img src="{{img.image.url}}" class="d-block w-100" alt="{{img.alt_text}}">
+                                </div>
+                              {%endfor%}
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#portfolioCarousel-{{portfolio.pk}}" data-bs-slide="prev">
+                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                              <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#portfolioCarousel-{{portfolio.pk}}" data-bs-slide="next">
+                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                              <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
                     {%endif%}
+                    {%endwith%}
                 </div>
             </div>
     </div>

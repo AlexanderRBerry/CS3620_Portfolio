@@ -28,15 +28,21 @@
         </a>
       {% endif %}
                 </div>
-                {%if p.image%}
-                <div class="col-md-5 text-center">
-                    <a href="{% url 'PortfolioDatabase:portfolio_details' p.pk %}"
-                        class="text-reset text-decoration-none">
-                        <img src="{{p.image.url}}" alt="{{ p.name }}" 
-                        class="img-fluid img-thumbnail" style="width: auto; height: 200px;">
-                    </a>
-                </div>
-                {%endif%}
+                <!--
+                "with" in a django template is a little like declaring a variable.
+                Here I am essentialy declaring a variable named img.
+                Side note, it seems like there can't be spaces in this assignment.-->
+                {% with img=p.images.first %}
+                  {%if img%}
+                  <div class="col-md-5 text-center">
+                      <a href="{% url 'PortfolioDatabase:portfolio_details' p.pk %}"
+                          class="text-reset text-decoration-none">
+                          <img src="{{img.image.url}}" alt="{{ img.image.alt_text }}" 
+                          class="img-fluid img-thumbnail" style="width: auto; height: 200px;">
+                      </a>
+                  </div>
+                  {%endif%}
+                {%endwith%}
             </div>
         </div>
     </li>
