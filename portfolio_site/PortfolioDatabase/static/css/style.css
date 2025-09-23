@@ -32,7 +32,7 @@ a:active{
   opacity: .85;
 }
 :root{
-  --ab-accent:       #17a2b8;      
+  --ab-accent:       #1091a5;      
   --ab-accent-600:   #495057;
   --ab-surface:      #ffffff;
   --ab-muted:        #6c757d;      
@@ -109,8 +109,8 @@ a:active{
 }
 .ab-gradient-hero{
   background:
-    radial-gradient(1200px 400px at 10% -10%, color-mix(in oklab, var(--ab-accent) 24%, transparent), transparent 60%),
-    radial-gradient(800px 300px at 110% 10%, color-mix(in oklab, var(--ab-accent) 18%, transparent), transparent 60%);
+    radial-gradient(1200px 400px at 5% 50%, color-mix(in oklab, var(--ab-accent) 54%, transparent), transparent 60%),
+    radial-gradient(1200px 400px at 90% 50%, color-mix(in oklab, var(--ab-accent) 44%, transparent), transparent 60%);
   border-radius: calc(var(--ab-radius) * 1.2);
   border: 1px solid var(--ab-border);
 }
