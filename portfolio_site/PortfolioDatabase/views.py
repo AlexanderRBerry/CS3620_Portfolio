@@ -1,9 +1,8 @@
 from django.shortcuts import render
 from .models import Hobby, Portfolio
 from django.views.generic import ListView, DetailView
+
 # Create your views here.
-#def home(request):
-#    return render(request, "index.html")
 def home(request):
     #featured = Portfolio.objects.order_by("id")[:3]  # Last 3 Projects
     featured = Portfolio.objects.filter(pk__in=[3, 6, 7]) # The specific projects I want to show off
