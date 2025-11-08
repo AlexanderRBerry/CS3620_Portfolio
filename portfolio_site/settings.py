@@ -26,8 +26,7 @@ SECRET_KEY = 'django-insecure-)1$=d=yaa$i0z6bzqt%!_+%nn#b-@qplmjjfhqce6@kh9w%52t
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-#TODO change to actual Heroku domain
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", ".ondigitalocean.app,localhost,127.0.0.1").split(",")
 
 
 # Application definition
