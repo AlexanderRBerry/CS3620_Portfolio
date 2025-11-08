@@ -137,21 +137,39 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+#if os.environ.get("SPACES_KEY") and os.environ.get("SPACES_SECRET"):
+#    DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+#    
+#    AWS_ACCESS_KEY_ID = os.environ.get("SPACES_KEY")
+#    AWS_SECRET_ACCESS_KEY = os.environ.get("SPACES_SECRET")
+#    AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME", "django-portfolio")
+#    AWS_S3_REGION_NAME = os.environ.get("AWS_S3_REGION_NAME", "sfo3")
+#    AWS_S3_ENDPOINT_URL = os.environ.get("AWS_S3_ENDPOINT_URL", "https://django-portfolio.sfo3.digitaloceanspaces.com")
+#    AWS_DEFAULT_ACL = "public-read"
+#
+#    MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.{AWS_S3_REGION_NAME}.digitaloceanspaces.com/"
+#else:
+#    MEDIA_URL = "/media/"
+#    MEDIA_ROOT = BASE_DIR / "media"
+
 if os.environ.get("SPACES_KEY") and os.environ.get("SPACES_SECRET"):
     DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+    
     AWS_ACCESS_KEY_ID = os.environ.get("SPACES_KEY")
-    print("Using DigitalOcean Spaces for media storage")
     AWS_SECRET_ACCESS_KEY = os.environ.get("SPACES_SECRET")
     AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME", "django-portfolio")
     AWS_S3_REGION_NAME = os.environ.get("AWS_S3_REGION_NAME", "sfo3")
-    AWS_S3_ENDPOINT_URL = os.environ.get("AWS_S3_ENDPOINT_URL", "https://django-portfolio.sfo3.digitaloceanspaces.com")
-    AWS_DEFAULT_ACL = "public-read"
+    AWS_S3_ENDPOINT_URL = f"https://{AWS_S3_REGION_NAME}.digitaloceanspaces.com"
+    AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.{AWS_S3_REGION_NAME}.cdn.digitaloceanspaces.com"
 
-    MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.{AWS_S3_REGION_NAME}.digitaloceanspaces.com/"
+    AWS_DEFAULT_ACL = "public-read"
+    AWS_QUERYSTRING_AUTH = False
+    AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
+
+    MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/"
 else:
     MEDIA_URL = "/media/"
     MEDIA_ROOT = BASE_DIR / "media"
-
 
 CSRF_TRUSTED_ORIGINS = [
     "https://*.ondigitalocean.app",
