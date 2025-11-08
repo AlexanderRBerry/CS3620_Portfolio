@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'PortfolioDatabase',
+    'storage'
 ]
 
 MIDDLEWARE = [
@@ -76,14 +77,19 @@ WSGI_APPLICATION = 'portfolio_site.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': dj_database_url.config(default='sqlite:///db.sqlite3', conn_max_age=600)
-    # For development
-    #'default': {
-    #    'ENGINE': 'django.db.backends.sqlite3',
-    #    'NAME': BASE_DIR / 'db.sqlite3',
-    #}
-}
+DATABASE_URL = os.environ.get("DATABASE_URL")
+
+if DATABASE_URL:
+    DATABASES = {
+        "default": dj_database_url.config(default=DATABASE_URL, conn_max_age=600)
+    }
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
 
 
 # Password validation
@@ -132,3 +138,15 @@ MEDIA_ROOT = BASE_DIR / "media"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+
+AWS_ACCESS_KEY_ID = os.environ.get("DO801HHMTRNXWTQUVN7J")
+AWS_SECRET_ACCESS_KEY = os.environ.get("IBneSUxHT04Y1jJ0GC6I+NKGE8/SYt2ilNMCAZMj734")
+AWS_STORAGE_BUCKET_NAME = os.environ.get("django-portfolio")
+AWS_S3_ENDPOINT_URL = os.environ.get("AWS_S3_ENDPOINT_URL", "https://django-portfolio.sfo3.digitaloceanspaces.com")
+AWS_S3_REGION_NAME = os.environ.get("AWS_S3_REGION_NAME", "SFO3")
+AWS_DEFAULT_ACL = os.environ.get("AWS_DEFAULT_ACL", "public-read")  # or None if using signed URLs
+
+# Public URL for media
+MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.{AWS_S3_REGION_NAME}.digitaloceanspaces.com/"
