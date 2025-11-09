@@ -166,7 +166,7 @@ if os.environ.get("SPACES_KEY") and os.environ.get("SPACES_SECRET"):
 
     AWS_DEFAULT_ACL = "None"
     AWS_QUERYSTRING_AUTH = False
-    AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
+    AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400", "ACL": "public-read",}
 
     MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/"
 else:
