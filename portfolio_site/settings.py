@@ -164,7 +164,7 @@ if os.environ.get("SPACES_KEY") and os.environ.get("SPACES_SECRET"):
     AWS_S3_ENDPOINT_URL = f"https://{AWS_S3_REGION_NAME}.digitaloceanspaces.com"
     AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.{AWS_S3_REGION_NAME}.digitaloceanspaces.com"
 
-    AWS_DEFAULT_ACL = "public-read"
+    AWS_DEFAULT_ACL = "None"
     AWS_QUERYSTRING_AUTH = False
     AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
 
