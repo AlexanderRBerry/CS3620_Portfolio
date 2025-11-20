@@ -20,9 +20,12 @@ class HobbyImage(models.Model):
         on_delete=models.CASCADE,
         related_name="images"
     )
-    image = models.ImageField(upload_to="hobbies/")
+    #image = models.ImageField(upload_to="hobbies/")
+    image_name = models.CharField(max_length=100, blank=True)
     alt_text = models.CharField(max_length=150, blank=True)
     order = models.PositiveIntegerField(default=2)
+    def get_image_path(self):
+        return f"images/hobbies/{self.image_name}"
     class meta:
         ordering = ["order", "id"]
     def __str__(self):
@@ -51,10 +54,13 @@ class PortfolioImage(models.Model):
         on_delete=models.CASCADE,
         related_name="images"
     )
-    image = models.ImageField(upload_to="portfolios/")
+    #image = models.ImageField(upload_to="portfolios/")
+    image_name = models.CharField(max_length=100, blank=True)
     alt_text = models.CharField(max_length=150, blank=True)
     order = models.PositiveSmallIntegerField(default=2)
-
+    def get_image_path(self):
+        return f"images/hobbies/{self.image_name}"
+    
     class Meta:
         ordering = ["order", "id"]
     def __str__(self):
