@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import os
 import dj_database_url
+from decouple import config
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -21,13 +22,33 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-)1$=d=yaa$i0z6bzqt%!_+%nn#b-@qplmjjfhqce6@kh9w%52t'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
-#TODO change to actual Heroku domain
-ALLOWED_HOSTS = ['*']
+IS_HEROKU_APP = "DYNO" in os.environ and "CI" not in os.environ
+
+if IS_HEROKU_APP:
+    # On Heroku, it's safe to use a wildcard for `ALLOWED_HOSTS`, since the Heroku router performs
+    # validation of the Host header in the incoming HTTP request. On other platforms you may need to
+    # list the expected hostnames explicitly in production to prevent HTTP Host header attacks. See:
+    # https://docs.djangoproject.com/en/5.2/ref/settings/#std-setting-ALLOWED_HOSTS
+    ALLOWED_HOSTS = ["*"]
+
+    # Redirect all non-HTTPS requests to HTTPS. This requires that:
+    # 1. Your app has a TLS/SSL certificate, which all `*.herokuapp.com` domains do by default.
+    #    When using a custom domain, you must configure one. See:
+    #    https://devcenter.heroku.com/articles/automated-certificate-management
+    # 2. Your app's WSGI web server is configured to use the `X-Forwarded-Proto` headers set by
+    #    the Heroku Router (otherwise you may encounter infinite HTTP 301 redirects). See this
+    #    app's `gunicorn.conf.py` for how this is done when using gunicorn.
+    #
+    # For maximum security, consider enabling HTTP Strict Transport Security (HSTS) headers too:
+    # https://docs.djangoproject.com/en/5.2/ref/middleware/#http-strict-transport-security
+    SECURE_SSL_REDIRECT = True
+else:
+    ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
 
 # Application definition
@@ -78,11 +99,6 @@ WSGI_APPLICATION = 'portfolio_site.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(default='sqlite:///db.sqlite3', conn_max_age=600)
-    # For development
-    #'default': {
-    #    'ENGINE': 'django.db.backends.sqlite3',
-    #    'NAME': BASE_DIR / 'db.sqlite3',
-    #}
 }
 
 

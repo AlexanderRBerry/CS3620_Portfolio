@@ -4,7 +4,7 @@ from .models import Hobby, Portfolio, PortfolioImage, HobbyImage
 class HobbyImageInline(admin.TabularInline):
     model = HobbyImage
     extra = 1
-    fields = ("image", "alt_text", "order")
+    fields = ("image_name", "alt_text", "order")
     ordering = ("order", "id")
 
 @admin.register(Hobby)
@@ -18,7 +18,7 @@ class HobbyAdmin(admin.ModelAdmin):
 class PortfolioImageInline(admin.TabularInline):
     model = PortfolioImage
     extra = 1
-    fields = ("image", "alt_text", "order")
+    fields = ("image_name", "alt_text", "order")
     ordering = ("order", "id")
 
 @admin.register(Portfolio)

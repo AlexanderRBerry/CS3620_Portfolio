@@ -59,7 +59,7 @@ class PortfolioImage(models.Model):
     alt_text = models.CharField(max_length=150, blank=True)
     order = models.PositiveSmallIntegerField(default=2)
     def get_image_path(self):
-        return f"images/hobbies/{self.image_name}"
+        return f"images/portfolios/{self.image_name}"
     
     class Meta:
         ordering = ["order", "id"]
