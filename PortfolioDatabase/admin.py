@@ -23,7 +23,7 @@ class PortfolioImageInline(admin.TabularInline):
 
 @admin.register(Portfolio)
 class PortfolioAdmin(admin.ModelAdmin):
-    list_display = ("name", "description", "portfolio_link", "has_link")
+    list_display = ("name", "description", "order", "portfolio_link", "has_link")
     search_fields = ("name",)
     # Filter by portfolios by those that have or do not have links
     list_filter = (("portfolio_link", admin.EmptyFieldListFilter),) 

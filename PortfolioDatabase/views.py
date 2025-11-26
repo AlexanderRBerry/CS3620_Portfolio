@@ -4,8 +4,7 @@ from django.views.generic import ListView, DetailView
 
 # Create your views here.
 def home(request):
-    featured = Portfolio.objects.order_by("id")[2:]  # Last 3 Projects
-    #featured = Portfolio.objects.filter(pk__in=[3, 6, 7]) # The specific projects I want to show off
+    featured = Portfolio.objects.order_by("order")[:3]  # Top 3 Projects
     return render(request, "index.html", {"featured": featured})
 
 class HobbyListView(ListView):
