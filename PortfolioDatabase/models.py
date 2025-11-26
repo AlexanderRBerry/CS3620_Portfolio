@@ -40,10 +40,13 @@ class Portfolio(models.Model):
     # The image field is going to be replaced by an image model with a foreign key to this model
     #image = models.ImageField("Portfolio Image", upload_to="portfolios/", blank=True, null=True)
 
+    # for specifying potfolio order
+    order = models.PositiveSmallIntegerField(default=2)
+
     class Meta:
         verbose_name = "Portfolio"
         verbose_name_plural = "Portfolios"
-        ordering = ["name"]
+        ordering = ["order", "name"]
 
     def __str__(self):
         return self.name
