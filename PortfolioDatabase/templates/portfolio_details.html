@@ -11,7 +11,7 @@
                     <h4>
                         Description
                     </h4>
-                    <p class="mb-1">{{portfolio.description|urlize}}</p>
+                    <div class="mb-1">{{portfolio.description|safe}}</div>
                     {%if portfolio.portfolio_link%}
                     <h5>
                         External Link
