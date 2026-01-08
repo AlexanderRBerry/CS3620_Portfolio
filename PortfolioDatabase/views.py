@@ -5,7 +5,7 @@ from django.views.generic import ListView, DetailView
 # Create your views here.
 def home(request):
     #context["desction_preview"] = portfolio.short_description(char_limit=200)
-    featuredPortfolios = Portfolio.objects.order_by("order")[:3]  # Top 3 Projects
+    featuredPortfolios = Portfolio.objects.order_by("order")[:3]  # Top 3 Projects by order
     featured = [
         {
             "portfolio": p,
