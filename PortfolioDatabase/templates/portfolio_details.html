@@ -14,9 +14,9 @@
                     <div class="mb-1">{{portfolio.description|safe}}</div>
                     {%if portfolio.portfolio_link%}
                     <h5>
-                        External Link
+                        Repository
                     </h5>
-                    <a href="{{ portfolio_link }}"
+                    <a href="{{ portfolio.portfolio_link }}"
                         target="_blank" rel="noopener"
                         class="btn btn-sm btn-soft-primary ab-focus-ring">
                         {{ portfolio.portfolio_link }}
