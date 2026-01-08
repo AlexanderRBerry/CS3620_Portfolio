@@ -62,7 +62,7 @@
                 {{ p.title|default:p.name }}
               </a>
             </h6>
-            <p class="card-text text-muted small flex-grow-1">{{ p.description|truncatechars:140 }}</p>
+            <p class="card-text text-muted small flex-grow-1">{{ p.short_description|safe }}</p>
             <div class="d-flex gap-2">
               <a href="{% url 'PortfolioDatabase:portfolio_details' p.pk %}" class="btn btn-sm btn-primary">Details</a>
               {% if p.portfolio_link %}

@@ -1,4 +1,6 @@
 from django.db import models
+from bs4 import BeautifulSoup, NavigableString
+from django.utils.safestring import mark_safe
 
 # Create your models here.
 class Hobby(models.Model):
@@ -42,6 +44,41 @@ class Portfolio(models.Model):
 
     # for specifying potfolio order
     order = models.PositiveSmallIntegerField(default=2)
+
+    # This method limits the length of the description (default 350 chars)
+    # It also accepts html tags
+    def short_description(self, char_limit=350):
+        soup = BeautifulSoup(self.description, "html.parser")
+        current_length = 0
+        output = BeautifulSoup("", "html.parser")  # clean output soup
+
+        def append_nodes(source, target):
+            nonlocal current_length
+            for element in source:
+                if isinstance(element, NavigableString):
+                    remaining = char_limit - current_length
+                    text = str(element)
+                    if remaining <= 0:
+                        return False
+                    if len(text) <= remaining:
+                        target.append(text)
+                        current_length += len(text)
+                    else:
+                        target.append(text[:remaining] + '...')
+                        current_length = char_limit
+                        return False
+                else:
+                    # Recursively preserve tags
+                    new_tag = output.new_tag(element.name)
+                    target.append(new_tag)
+                    if not append_nodes(element.contents, new_tag):
+                        return False
+            return True
+
+        append_nodes(soup.body.contents if soup.body else soup.contents, output)
+
+        return mark_safe(str(output))
+
 
     class Meta:
         verbose_name = "Portfolio"

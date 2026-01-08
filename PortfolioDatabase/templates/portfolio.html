@@ -18,7 +18,7 @@
       </strong>
 
       <p class="mb-2 ">
-        {{ p.description|urlize }} 
+        {{ p.short_description|safe }} 
       </p>
 
       {% if p.portfolio_link %}
